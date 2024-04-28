@@ -36,3 +36,40 @@
 - `ts-node`: ts-node is a TypeScript execution engine and REPL for Node.js. And used for dev mode
 - `tsconfig-paths`: Use this to load modules whose location is specified in the paths section of tsconfig.json
 - use nodemon package for using watch mode while starting server in dev
+
+## 8. Postgres setup
+
+- why postgres? a relational db? and not document based db e.g: MongoDB?
+
+  - because MongoDB does not have schema by default. Although relations b/w documents can be built with mongo, still it will need some additional efforts but with Postgres, it is very easy to build relations b/w tables.
+
+- why postgres? why not other relational db like MySQL?
+
+  - MySQL is also a good choice but Postgres is more advanced and has more features than MySQL. MySQL is more suitable for small scale applications.
+
+- download and isntall postgresql on your machine
+
+  - https://www.postgresql.org/download/macosx/
+
+- commands:
+
+  - `sudo -u postgres psql`: login to postgres
+  - `\l`: list all databases
+  - `\c <db_name>`: connect to a database
+  - `\dt`: list all tables in the database
+  - `\du`: list all users
+  - Create database: `CREATE DATABASE <db_name>;`
+  - `\q`: quit
+
+- commands I followed:
+  - login: `sudo -u kirandash psql -U kirandash -d postgres`
+    - here `kirandash` is the postgres username and `postgres` is the database name
+  - create database: `create database mediumclone;`
+  - create user: `create user mediumclone with encrypted password 'mediumclone';`
+  - grant privileges: `grant all privileges on database mediumclone to mediumclone;`
+    - check if the privileges are granted: `\l`
+
+## 9 DB connection in NestJS
+
+- `pnpm add @nestjs/typeorm typeorm pg`
+- we will use https://typeorm.io/ for interacting with the postgresql database
