@@ -26,3 +26,5 @@
 - Controllers are responsible for handling incoming requests and returning responses to the client.
 
 ## 5. Build Tag Module
+
+## 6. Create Tag Service
