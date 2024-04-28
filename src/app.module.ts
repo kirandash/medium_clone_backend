@@ -16,7 +16,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'mediumclone',
       password: 'mediumclone',
       database: 'mediumclone',
-      entities: [],
+      // .ts files for src folder and .js files for dist folder
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       // 🚨 Don't use this in PROD!!!
       synchronize: true,
     }),
