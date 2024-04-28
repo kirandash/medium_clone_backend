@@ -81,3 +81,15 @@
 - connect to db: `\c mediumclone`
 - `\dt`: list all tables
 - `\d tag`: describe tag table
+
+## 11 Create Tag Repository
+
+- Populate data:
+  - Add data to the table tag: `insert into tag (name) values ('javascript');`
+  - to see data: `select * from tag;`
+- https://docs.nestjs.com/techniques/database#repository-pattern
+
+- Repository pattern:
+  - `forFeature()` method is used to define which repositories are registered in the current scope
+  - inject the `tagRepository` into the `TagService` using the `@InjectRepository()` decorator
+- Once data is fetched inside service, modify the response in controller to match the API spec. Note: don't modify the response in service, keep it as it is. Modify the response in controller. Since service can be reused in other places as well.
