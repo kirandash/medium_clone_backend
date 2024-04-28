@@ -18,3 +18,11 @@
 
 - NodeJS
 - Follow nest installation guide from: https://docs.nestjs.com/
+- postman
+
+## 4. Module, controllers and providers
+
+- A module is a class annotated with a @Module() decorator. The @Module() decorator provides metadata that Nest makes use of to organize the application structure.
+- Controllers are responsible for handling incoming requests and returning responses to the client.
+
+## 5. Build Tag Module
