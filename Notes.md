@@ -28,3 +28,11 @@
 ## 5. Build Tag Module
 
 ## 6. Create Tag Service
+
+## 7. Configuring absolute path and the start script
+
+- use module-alias package for supporting absolute path for the JS files
+- configure paths in tsconfig.json file for supporting absolute path for the ts files
+- `ts-node`: ts-node is a TypeScript execution engine and REPL for Node.js. And used for dev mode
+- `tsconfig-paths`: Use this to load modules whose location is specified in the paths section of tsconfig.json
+- use nodemon package for using watch mode while starting server in dev
