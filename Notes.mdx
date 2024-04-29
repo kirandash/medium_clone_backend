@@ -116,3 +116,10 @@
 - generate user module: `nest g mo user`
 - generate user controller: `nest g co user`
 - generate user service: `nest g s user`
+
+## 14 Create DTO - RegisterUserDto
+
+- DTO: Data Transfer Object is an object that carries data between processes. The data is transferred in the form of objects. It is used to encapsulate the data and send it over the network.
+  - Note: It's recommended to use class for DTO rather than interface because interface is not available at runtime as it is not part of javascript. So, if you want to use the class for validation, you should use class for DTO. Because class is available at runtime as it is part of javascript.
+- https://docs.nestjs.com/controllers#request-payloads
+- Read more about request object at: https://docs.nestjs.com/controllers#request-object
