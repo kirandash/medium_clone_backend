@@ -136,3 +136,14 @@
 - add jwt token to response
 - library: https://github.com/auth0/node-jsonwebtoken
 - create userResponse.interface for response type in user service and user.type for type of user object in user entity except the hashPassword field
+
+## 17 Validation with Pipes and Exception Handling
+
+- https://docs.nestjs.com/pipes
+- A pipe is a class annotated with the @Injectable() decorator, which implements the PipeTransform interface.
+- Pipes have two typical use cases:
+  - transformation: transform input data to the desired form (e.g., from string to integer)
+  - validation: evaluate input data and if valid, simply pass it through unchanged; otherwise, throw an exception
+- `pnpm add class-validator class-transformer`
+- use `ValidationPipe` for validation and @UsePipes decorator to apply the pipe to the controller or method and then use IsNotEmpty, IsString, IsEmail decorators for validation in DTO
+- add validations to check if user email or username already exists in the database by querying the db in service and then throw an exception if user already exists. For exception please use the NestJS built-in exception handling mechanism ex: HttpException, HttpStatus enum.
