@@ -93,3 +93,19 @@
   - `forFeature()` method is used to define which repositories are registered in the current scope
   - inject the `tagRepository` into the `TagService` using the `@InjectRepository()` decorator
 - Once data is fetched inside service, modify the response in controller to match the API spec. Note: don't modify the response in service, keep it as it is. Modify the response in controller. Since service can be reused in other places as well.
+
+## 12 Setting up and working with migrations
+
+- add `db:drop` script in package.json using `typeorm` cli
+  - run `pnpm db:drop` to drop the tables
+- add `db:create` script in package.json using `typeorm` cli for migrations
+  - run: `pnpm db:create src/migrations/Tags` to generate the migrations: here `src/migrations/Tags` is the path where the migration file will be generated and `Tags` is the name of the migration file which can be anything
+- add `db:migrate` script in package.json using `typeorm` cli for migrations
+  - run: `pnpm db:migrate` to run the migrations
+- To check if the migrations are run successfully, check the tables in the database
+  - run: `\dt` to list all tables
+  - run: `\d tag` to describe the tag table
+  - run: `select * from tag;` to see the data in the tag table
+  - run: `select * from migrations;` to see the migrations history
+- Note: Always commit the migrations files to the git
+- In dev mode or prod mode, you can always clone the repo from git, then drop the tables and run the migrations to create the tables

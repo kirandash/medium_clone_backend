@@ -18,8 +18,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'mediumclone',
       // .ts files for src folder and .js files for dist folder
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      // 🚨 Don't use this in PROD!!!
-      synchronize: true,
     }),
   ],
   controllers: [AppController],
