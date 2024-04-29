@@ -3,6 +3,7 @@ import { AppController } from '@app/app.controller';
 import { AppService } from '@app/app.service';
 import { TagModule } from '@app/tag/tag.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from '@app/user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       // .ts files for src folder and .js files for dist folder
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
