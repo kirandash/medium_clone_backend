@@ -130,3 +130,9 @@
 - create users entity
 - create new db migration: `pnpm db:create src/migrations/CreateUsers`
 - run the migration: `pnpm db:migrate`
+
+## 16 Fix the response to match API spec and add jwt token
+
+- add jwt token to response
+- library: https://github.com/auth0/node-jsonwebtoken
+- create userResponse.interface for response type in user service and user.type for type of user object in user entity except the hashPassword field
