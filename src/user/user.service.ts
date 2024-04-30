@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 import { UserResponse } from '@app/user/types/userResponse.interface';
-
+import { compare } from 'bcrypt';
 @Injectable()
 export class UserService {
   constructor(
@@ -48,6 +48,40 @@ export class UserService {
       // process.env.JWT_SECRET,
       'kiranstopsecret',
     );
+  }
+
+  async loginUser(loginUserDto: {
+    email: string;
+    password: string;
+  }): Promise<Users> {
+    // Check if the user email exists in the database
+    const user = await this.userRepository.findOne({
+      where: { email: loginUserDto.email },
+      // select is required to select the password field from the database
+      select: ['id', 'email', 'username', 'password', 'image', 'bio'],
+    });
+    if (!user) {
+      throw new HttpException(
+        'Credentials are invalid',
+        // 401 Unauthorized
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+    // Check if the password is correct
+    const isPasswordCorrect = await compare(
+      loginUserDto.password,
+      user.password,
+    );
+    if (!isPasswordCorrect) {
+      throw new HttpException(
+        'Credentials are invalid',
+        // 401 Unauthorized
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    delete user.password;
+    return user;
   }
 
   buildUserResponse(user: Users): UserResponse {

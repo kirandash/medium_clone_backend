@@ -15,7 +15,8 @@ export class Users {
   @Column()
   username: string;
 
-  @Column()
+  // select: false will prevent the password from being returned in the response
+  @Column({ select: false })
   password: string;
 
   @BeforeInsert()

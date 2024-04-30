@@ -126,7 +126,7 @@
 
 ## 15 Create Users Entity
 
-- user entity to define the user table schema
+- user entity to define the users table schema
 - create users entity
 - create new db migration: `pnpm db:create src/migrations/CreateUsers`
 - run the migration: `pnpm db:migrate`
@@ -146,4 +146,14 @@
   - validation: evaluate input data and if valid, simply pass it through unchanged; otherwise, throw an exception
 - `pnpm add class-validator class-transformer`
 - use `ValidationPipe` for validation and @UsePipes decorator to apply the pipe to the controller or method and then use IsNotEmpty, IsString, IsEmail decorators for validation in DTO
-- add validations to check if user email or username already exists in the database by querying the db in service and then throw an exception if user already exists. For exception please use the NestJS built-in exception handling mechanism ex: HttpException, HttpStatus enum.
+- add validations to check if user email or username already exists in the database by querying the db in service and then throw an exception if user already exists. For exception please use the NestJS built-in exception handling mechanism ex: `HttpException`, `HttpStatus` enum.
+
+## 18 Create Login endpoint
+
+- spec: https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints#authentication
+- We can use the user module for login as well. Since registration and login share the same route.
+- Steps:
+  - check if user exists in the db
+  - if user exists, then check if the password is correct using `compare` method from `bcrypt` library
+- Note: password should not be returned in the response. So, modify the response to match the API spec. Also modify the user.entity `@Column({ select: false })` to not return the password in the response for any future queries that will use the user entity. This way by default password field will never be selected.
+  - we have to use `select: ['id', 'email', 'username', 'password', 'image', 'bio'],` in the query to select the password field. This is because by default the password field is not selected. So, if you want to select the password field, you have to explicitly mention it in the query.
