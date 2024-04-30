@@ -50,6 +50,10 @@ export class UserService {
     );
   }
 
+  async findUserById(userId: number): Promise<Users> {
+    return await this.userRepository.findOne({ where: { id: userId } });
+  }
+
   async loginUser(loginUserDto: {
     email: string;
     password: string;

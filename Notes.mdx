@@ -157,3 +157,17 @@
   - if user exists, then check if the password is correct using `compare` method from `bcrypt` library
 - Note: password should not be returned in the response. So, modify the response to match the API spec. Also modify the user.entity `@Column({ select: false })` to not return the password in the response for any future queries that will use the user entity. This way by default password field will never be selected.
   - we have to use `select: ['id', 'email', 'username', 'password', 'image', 'bio'],` in the query to select the password field. This is because by default the password field is not selected. So, if you want to select the password field, you have to explicitly mention it in the query.
+
+## 19 Auth Middleware and Get user API with authentication
+
+- Docs: https://docs.nestjs.com/faq/request-lifecycle#middleware
+- We will use middleware to check if the user is authenticated or not. If the user is authenticated, then only the user can access the protected routes.
+- create middleware: `nest g mi user/middlewares/auth`
+- how to configure middleware: https://docs.nestjs.com/middleware#applying-middleware
+- The middleware is added to app module and not to the user module because we want to apply the middleware to all the routes and not just to the user module routes.
+- Create `ExpressRequest` as an extension of Request interface to add user property to the request object. This way we can access the user object in the request object in the controller.
+- use `verify` method from `jsonwebtoken` library to verify the token and get the user object from the token. If the token is valid, then call the service `findUserById` method to get the user object from the db and then add the user object to the request object and then pass the request
+- export `UserService` from the user.module to use it in the middleware which is at the global leve
+
+  l
+-
