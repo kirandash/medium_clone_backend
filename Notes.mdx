@@ -170,4 +170,11 @@
 - export `UserService` from the user.module to use it in the middleware which is at the global leve
 
   l
--
+
+## 20 Custom User Decorator
+
+- Docs: https://docs.nestjs.com/graphql/other-features#custom-decorators
+- create a user decorator: `nest g d user/decorators/user`
+- https://docs.nestjs.com/custom-decorators#param-decorators
+- use `createParamDecorator` to create a custom decorator to get the user object from the request object in the controller
+- use the custom decorator in the controller to get the user object from the request object
