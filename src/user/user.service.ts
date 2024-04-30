@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 import { UserResponse } from '@app/user/types/userResponse.interface';
 import { compare } from 'bcrypt';
+import { UpdateUserDto } from './dto/updateUser.dto';
 @Injectable()
 export class UserService {
   constructor(
@@ -86,6 +87,15 @@ export class UserService {
 
     delete user.password;
     return user;
+  }
+
+  async updateUser(
+    userId: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<Users> {
+    const user = await this.findUserById(userId);
+    Object.assign(user, updateUserDto);
+    return await this.userRepository.save(user);
   }
 
   buildUserResponse(user: Users): UserResponse {

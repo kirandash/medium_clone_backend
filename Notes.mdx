@@ -187,3 +187,8 @@
 - But middleware, by its nature, is dumb. It doesn't know which handler will be executed after calling the next() function. On the other hand, Guards have access to the ExecutionContext instance, and thus know exactly what's going to be executed next. They're designed, much like exception filters, pipes, and interceptors, to let you interpose processing logic at exactly the right point in the request/response cycle, and to do so declaratively. This helps keep your code DRY and declarative.
 - create an auth.guard.ts file: `nest g gu user/guards/auth`
 - Note that the guard is applied after the middleware. This is because the middleware will add the user object to the request object and then the guard will use the user object from the request object to check if the user is authenticated or not.
+
+## 22 Update user
+
+- spec: https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints#update-user
+- Note: we have removed validation for the update user endpoint
