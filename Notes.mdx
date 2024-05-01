@@ -192,3 +192,13 @@
 
 - spec: https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints#update-user
 - Note: we have removed validation for the update user endpoint
+
+## 23 Create Article Module, controller, service, entity and migration
+
+- https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints#create-article
+- create article module, controller and service
+- Create Article Entity using spec here: https://realworld-docs.netlify.app/docs/specs/backend-specs/api-response-format/#single-article
+- Create migration: `pnpm db:create src/migrations/CreateArticle`
+- Run migration: `pnpm db:migrate`
+- go to postgresql and check the tables: `\dt`
+- use the command: `\d article` to describe the article table

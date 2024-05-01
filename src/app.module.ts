@@ -5,6 +5,7 @@ import { TagModule } from '@app/tag/tag.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@app/user/user.module';
 import { AuthMiddleware } from '@app/user/middlewares/auth/auth.middleware';
+import { ArticleModule } from '@app/article/article.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthMiddleware } from '@app/user/middlewares/auth/auth.middleware';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
     UserModule,
+    ArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
