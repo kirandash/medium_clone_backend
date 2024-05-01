@@ -202,3 +202,15 @@
 - Run migration: `pnpm db:migrate`
 - go to postgresql and check the tables: `\dt`
 - use the command: `\d article` to describe the article table
+
+## 24 Continue working on Create Article Endpoint
+
+- Note that article endpoint needs authentication hence it will need user. Let's build the relation of user and article entities
+- docs: https://typeorm.io/relations#relations
+- https://typeorm.io/many-to-one-one-to-many-relations#
+- OneToMany in user.entity and ManyToOne in article.entity
+- `pnpm db:create src/migrations/AddRelationBwUserAndArticle`
+- create createArticle dto
+- update the service to save dto in table
+- postgresql: `select * from article;` to see the data
+  - use `\x` to toggle expanded view and see the table rows in a formatted way
