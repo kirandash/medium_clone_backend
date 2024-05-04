@@ -42,6 +42,7 @@ export class ArticleEntity {
   }
 
   // Relation with users
-  @ManyToOne(() => Users, (user) => user.articles)
+  // eager: true means that when we fetch an article, the author will be fetched as well
+  @ManyToOne(() => Users, (user) => user.articles, { eager: true })
   author: Users;
 }

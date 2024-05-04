@@ -228,3 +228,9 @@
 - use Param decorator to get the slug from the request object
   - https://docs.nestjs.com/custom-decorators#param-decorators
 - use the service to get the article by slug
+
+## 27 Delete Article Endpoint
+
+- https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints/#delete-article
+  - DELETE /api/articles/:slug, Note: authentication is required
+- before deleting the article, check if the article exists and if user is the owner of the article
