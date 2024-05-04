@@ -40,4 +40,8 @@ export class ArticleService {
     const uniqueId = Math.random().toString(36).substring(2);
     return slugify(title, { lower: true }) + '-' + uniqueId;
   }
+
+  async getArticleBySlug(slug: string): Promise<ArticleEntity> {
+    return await this.articleRepository.findOne({ where: { slug } });
+  }
 }

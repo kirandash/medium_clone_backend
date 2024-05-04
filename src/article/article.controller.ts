@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -28,6 +30,12 @@ export class ArticleController {
       user,
       createArticleDto,
     );
+    return this.articleService.buildArticleResponse(article);
+  }
+
+  @Get(':slug')
+  async GetArticle(@Param('slug') slug: string): Promise<ArticleResponse> {
+    const article = await this.articleService.getArticleBySlug(slug);
     return this.articleService.buildArticleResponse(article);
   }
 }
