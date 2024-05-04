@@ -59,4 +59,29 @@ export class ArticleService {
   async getArticleBySlug(slug: string): Promise<ArticleEntity> {
     return await this.articleRepository.findOne({ where: { slug } });
   }
+
+  async updateArticle(
+    slug: string,
+    userId: number,
+    updateArticleDto: CreateArticleDto,
+  ): Promise<ArticleEntity> {
+    const article = await this.getArticleBySlug(slug);
+
+    if (!article) {
+      throw new HttpException('Article not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (article.author.id !== userId) {
+      throw new HttpException('You are not the author', HttpStatus.FORBIDDEN);
+    }
+
+    // update slug if title is changed
+    if (updateArticleDto.title && article.title !== updateArticleDto.title) {
+      article.slug = this.generateSlug(updateArticleDto.title);
+    }
+
+    Object.assign(article, updateArticleDto);
+
+    return await this.articleRepository.save(article);
+  }
 }
