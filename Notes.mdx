@@ -240,3 +240,12 @@
 - https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints/#update-article
   - although API spec says input is optional but we will make it required
 - before updating the article, check if the article exists and if user is the owner of the article
+
+## 29 List Articles Endpoint
+
+- https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints/#list-articles
+- We can not use typeorm repository as there are multiple conditions to be checked before fetching the articles. So, we will use query builder to build the query
+- https://orkhan.gitbook.io/typeorm/docs/select-query-builder
+- Query builder: https://orkhan.gitbook.io/typeorm/docs/select-query-builder#what-is-querybuilder
+- Create query builder: https://orkhan.gitbook.io/typeorm/docs/select-query-builder#how-to-create-and-use-a-querybuilder
+- use `andWhere` to add multiple conditions in the query for filtering the articles
