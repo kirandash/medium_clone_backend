@@ -128,6 +128,24 @@ export class ArticleService {
       });
     }
 
+    // Filter By Favorited
+    if (query.favorited) {
+      const author = await this.userRepository.findOne({
+        where: { username: query.favorited },
+        relations: ['favorites'],
+      });
+      // get ids of articles that the user has favorited
+      const ids = author.favorites.map((favorite) => favorite.id);
+
+      if (ids.length > 0) {
+        // IN is used to search for a value in an array
+        queryBuilder.andWhere('article.id IN (:...ids)', { ids });
+      } else {
+        // if the user has no favorites, return no articles
+        queryBuilder.andWhere('1=0');
+      }
+    }
+
     // sort by createdAt
     queryBuilder.orderBy('article.createdAt', 'DESC');
 
