@@ -164,9 +164,23 @@ export class ArticleService {
       queryBuilder.offset(query.offset);
     }
 
-    const articles = await queryBuilder.getMany();
+    let favoriteIds: number[] = [];
 
-    return { articles, articlesCount };
+    if (userId) {
+      const user = await this.userRepository.findOne({
+        where: { id: userId },
+        relations: ['favorites'],
+      });
+      favoriteIds = user.favorites.map((favorite) => favorite.id);
+    }
+
+    const articles = await queryBuilder.getMany();
+    const articlesWithFavorites = articles.map((article) => {
+      const favorited = favoriteIds.includes(article.id);
+      return { ...article, favorited };
+    });
+
+    return { articles: articlesWithFavorites, articlesCount };
   }
 
   private generateSlug(title: string): string {
