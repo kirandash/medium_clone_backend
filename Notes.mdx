@@ -269,3 +269,12 @@
 
 - check if an article has been favorited or not by the user
 - TODO: add it for get article by slug endpoint as well
+
+## 34 Seeding Data
+
+- for dev environment, we need to seed the data
+- create seed data for tags, users, articles etc
+- some frameworks like Laravel have built-in support for seeding data but in NestJS we have to do it manually
+- add seed script in package.json to run migration using data from seed files
+  - create ormseedconfig and ormseeddatasource files
+- `pnpm db:drop`, `pnpm db:migrate` to create the tablse and `pnpm db:seed` to seed the data into the tables

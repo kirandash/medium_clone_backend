@@ -6,22 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '@app/user/user.module';
 import { AuthMiddleware } from '@app/user/middlewares/auth/auth.middleware';
 import { ArticleModule } from '@app/article/article.module';
+import ormConfig from './ormconfig';
 
 @Module({
   imports: [
     TagModule,
     // .forRoot() method is used to configure the database connection
     // TODO: Move the database configuration to a separate file called ormconfig.ts in src. Currently it's not moved because I am unsure about the type
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'mediumclone',
-      password: 'mediumclone',
-      database: 'mediumclone',
-      // .ts files for src folder and .js files for dist folder
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-    }),
+    TypeOrmModule.forRoot(ormConfig),
     UserModule,
     ArticleModule,
   ],
