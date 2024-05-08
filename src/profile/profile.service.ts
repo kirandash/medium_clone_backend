@@ -3,12 +3,15 @@ import { ProfileType } from './types/profile.type';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../user/user.entity';
 import { Repository } from 'typeorm';
+import { FollowEntity } from './follow.entity';
 
 @Injectable()
 export class ProfileService {
   constructor(
     @InjectRepository(Users)
     private readonly userRepository: Repository<Users>,
+    @InjectRepository(FollowEntity)
+    private readonly followRepository: Repository<FollowEntity>,
   ) {}
 
   async getProfile(
@@ -24,6 +27,39 @@ export class ProfileService {
     }
 
     return { ...user, following: false };
+  }
+
+  async followProfile(
+    currentUserId: number,
+    profileUsername: string,
+  ): Promise<ProfileType> {
+    const profileUser = await this.userRepository.findOne({
+      where: { username: profileUsername },
+    });
+
+    if (!profileUser) {
+      throw new HttpException('Profile does not exist', HttpStatus.NOT_FOUND);
+    }
+
+    if (currentUserId === profileUser.id) {
+      throw new HttpException(
+        'Follower and following user cannot be the same',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const follow = await this.followRepository.findOne({
+      where: { followerId: currentUserId, followingId: profileUser.id },
+    });
+
+    if (!follow) {
+      const newFollow = new FollowEntity();
+      newFollow.followerId = currentUserId;
+      newFollow.followingId = profileUser.id;
+      await this.followRepository.save(newFollow);
+    }
+
+    return { ...profileUser, following: true };
   }
 
   buildProfileResponse(profile: any) {
