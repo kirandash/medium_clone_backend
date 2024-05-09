@@ -14,6 +14,9 @@ export class UserService {
   ) {}
 
   async registerUser(registerUserDto: RegisterUserDto): Promise<Users> {
+    const errorResponse = {
+      errors: {},
+    };
     // Check if the user email already exists in the database
     const userByEmail = await this.userRepository.findOne({
       where: { email: registerUserDto.email },
@@ -22,13 +25,26 @@ export class UserService {
     const userByUsername = await this.userRepository.findOne({
       where: { username: registerUserDto.username },
     });
-    if (userByEmail || userByUsername) {
-      throw new HttpException(
-        'Email or username already exists',
-        // 422 Unprocessable Entity
-        HttpStatus.UNPROCESSABLE_ENTITY,
-      );
+
+    if (userByEmail) {
+      errorResponse.errors['email'] = 'Email has already been taken';
     }
+    if (userByUsername) {
+      errorResponse.errors['username'] = 'Username has already been taken';
+    }
+
+    if (userByEmail || userByUsername) {
+      throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    // if (userByEmail || userByUsername) {
+    //   throw new HttpException(
+    //     'Email or username already exists',
+    //     // 422 Unprocessable Entity
+    //     HttpStatus.UNPROCESSABLE_ENTITY,
+    //   );
+    // }
+
     // create a new user instance and assign the values from the registerUserDto
     const newUser = new Users();
     Object.assign(newUser, registerUserDto);
@@ -59,6 +75,11 @@ export class UserService {
     email: string;
     password: string;
   }): Promise<Users> {
+    const errorResponse = {
+      errors: {
+        'email or password': 'is invalid',
+      },
+    };
     // Check if the user email exists in the database
     const user = await this.userRepository.findOne({
       where: { email: loginUserDto.email },
@@ -67,7 +88,7 @@ export class UserService {
     });
     if (!user) {
       throw new HttpException(
-        'Credentials are invalid',
+        errorResponse,
         // 401 Unauthorized
         HttpStatus.UNAUTHORIZED,
       );
@@ -79,7 +100,7 @@ export class UserService {
     );
     if (!isPasswordCorrect) {
       throw new HttpException(
-        'Credentials are invalid',
+        errorResponse,
         // 401 Unauthorized
         HttpStatus.UNAUTHORIZED,
       );
