@@ -289,3 +289,10 @@
 - `pnpm db:create src/migrations/CreateFollowTable`
 
 ## 37 Unfollow user endpoint
+
+## 38 Feed Articles endpoint
+
+- does require authentication
+- GET `/api/articles/feed`
+- get the articles of the users that the current user is following ordered by most recent first
+- can also take `limit` and `offset` query params like the list articles endpoint
