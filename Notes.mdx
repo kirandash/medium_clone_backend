@@ -189,7 +189,7 @@
 - create an auth.guard.ts file: `nest g gu user/guards/auth`
 - Note that the guard is applied after the middleware. This is because the middleware will add the user object to the request object and then the guard will use the user object from the request object to check if the user is authenticated or not.
 
-## 22 Update user
+## 22 Update user endpoint
 
 - spec: https://realworld-docs.netlify.app/docs/specs/backend-specs/endpoints#update-user
 - Note: we have removed validation for the update user endpoint
@@ -301,3 +301,9 @@
 ## 39 Improving Validation - Custom Validation Pipe
 
 - https://docs.nestjs.com/pipes#custom-pipes
+
+## 40 Integrate Backend with existing Frontend (ex: Remix)
+
+- FE codebase: https://codebase.show/projects/realworld?category=frontend
+- pick recently updated codebase
+  - for me it was remix https://github.com/joma1021/realworld-remix
