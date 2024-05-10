@@ -1,3 +1,8 @@
+## Course URL:
+
+Aritcle: [Medium.com clone using NestJS, TypeORM, Postgresql and Typescript](https://bgwebagency.in/medium-com-clone-using-nestjs-typeorm-postgresql-and-typescript/)
+YouTube Playlist: https://youtube.com/playlist?list=PLfWvlHR69RlZQrz5JIClOExmzak2V8027&si=DGT7dJUkiD6HnKuX
+
 ## Description
 
 ## Installation
